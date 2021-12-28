@@ -1,55 +1,67 @@
-* {
-    font-size: 20px;
-}
-
 html {
 	background: linear-gradient( #bbb, transparent 1px), linear-gradient( 90deg, #bbb, transparent 1px);
 	background-size: 20px 20px;
+    font-size: 20px;
 	background-position: center center;
     font-family: sans-serif;
+    position: relative;
 }
 
 .desk {
     min-width: 500px;
-    width: 700px;
 }
 
 button {
     all: unset;
     cursor: pointer;
-    margin-left: auto;
+    display: block;
     border: 1px solid black;
     border-radius: 15px;
-    padding: 15px;
+    padding: 15px 25px;
     background-color:white;
 }
 
+.desk__add-button {
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
 .popup {
-    display: none;
+    /* display: none; */
     position: absolute;
     background-color: white;
     z-index: 1;
-    top: 10px;
-    right: 7px;
-    min-width: 87%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 50%;
     border: 1px solid black;
     padding: 5%;
-}
-
-.form__label {
-    display: block;
-    margin-left: 10px;
-}
-
-.input {
     border-radius: 15px;
+}
+
+.popup__form {
+    margin-top: 20px;
+}
+
+.label-input {
+    display: block;
+    margin-bottom: 20px;
+}
+
+input {
     border: 1px solid black;
     height: 40px;
     box-sizing: border-box;
     padding: 0 10px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
-.form__button-container {
+.popup__text {
+    display: none;
+}
+
+.button-panel {
     display: flex;
     justify-content: end;
 }
@@ -61,6 +73,10 @@ button {
     height: 40px;
     box-sizing: border-box;
     padding: 5px 40px;
+}
+
+.ok-button {
+    margin-left: 20px;
 }
 
 
