@@ -11,11 +11,6 @@ module.exports = merge(common, {
 
   // Spin up a server for quick development
   devServer: {
-    open: {
-      app: {
-        name: 'chrome',
-      },
-    },
     port: 9000,
     hot: true,
   },
