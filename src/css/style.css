@@ -69,12 +69,19 @@ button {
     background-color: white;
     z-index: 1;
     left: 50%;
+    top: 50%;
     transform: translate(-50%);
     width: 50%;
     border: 1px solid black;
     padding: 5%;
     border-radius: 15px;
     min-width: 270px;
+}
+
+.popup__title {
+    text-align: center;
+    font-weight: normal;
+    margin-top: 0;
 }
 
 .popup__form {
@@ -88,11 +95,22 @@ button {
 
 .short-description, .detailed-description {
     border: 1px solid black;
-    height: 40px;
     box-sizing: border-box;
-    padding: 0 10px;
     margin-bottom: 20px;
     width: 100%;
+    font-size: 20px;
+    font-family: inherit;
+}
+
+.short-description {
+    height: 40px;
+    padding: 0 10px;
+}
+
+.detailed-description {
+    height: 60px;
+    resize: none;
+    padding: 10px;
 }
 
 .popup__text {
@@ -117,4 +135,7 @@ button {
     margin-left: 20px;
 }
 
+.active {
+    display: block;
+}
 

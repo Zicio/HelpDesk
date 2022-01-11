@@ -14,4 +14,28 @@ export default class DOM {
       }
     }
   }
+
+  static renderPopupAdd() {
+    const popUp = document.querySelector('.popup');
+    const titleOfPopUp = popUp.querySelector('.popup__title');
+    titleOfPopUp.textContent = 'Добавить тикет';
+    popUp.classList.add('active');
+  }
+
+  static hidePopupAdd() {
+    const popUp = document.querySelector('.popup');
+    popUp.classList.remove('active');
+  }
+
+  static renderPopupChange(response) {
+    const popUp = document.querySelector('.popup');
+    const titleOfPopUp = popUp.querySelector('.popup__title');
+    titleOfPopUp.textContent = 'Изменить тикет';
+    const form = popUp.querySelector('.popup__form');
+    const shortDescriptionField = form.querySelector('.short-description');
+    const detailedDescriptionField = form.querySelector('.detailed-description');
+    shortDescriptionField.value = `${response.name}`;
+    detailedDescriptionField.value = `${response.description}`;
+    popUp.classList.add('active');
+  }
 }
