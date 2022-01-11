@@ -8,7 +8,7 @@ html {
 }
 
 .desk {
-    min-width: 500px;
+    min-width: 300px;
 }
 
 button {
@@ -45,10 +45,9 @@ button {
     margin: 0;
 }
 
-.ticket__name {
+.ticket__name, .ticket__date {
     margin-top: 10px;
     margin-left: 10px;
-    font-size: 15px;
 }
 
 .ticket__button {
