@@ -26,4 +26,12 @@ export default class Request {
     }
     return ticket[0];
   }
+
+  async postTicket(form) {
+    const url = `${this.url}?method=createTicket`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: new FormData(form),
+    });
+  }
 }

@@ -17,17 +17,39 @@ export default class DOM {
 
   static showPopup(type, response) {
     const popUp = document.querySelector('.popup');
+    const form = popUp.querySelector('.popup__form');
+    const text = popUp.querySelector('.popup__text');
+    const activeEl = popUp.querySelector('.active');
+    for (const field of form.elements) {
+      field.value = null;
+    }
+    if (activeEl) {
+      activeEl.classList.remove('active');
+    }
     if (type) {
       const titleOfPopUp = popUp.querySelector('.popup__title');
       titleOfPopUp.textContent = type;
     }
+    if (type === 'Добавить тикет') {
+      form.classList.add('active');
+    }
+    if (type === 'Удалить тикет') {
+      text.classList.add('active');
+    }
     if (response) {
-      const form = popUp.querySelector('.popup__form');
+      form.classList.add('active');
       const shortDescriptionField = form.querySelector('.short-description');
       const detailedDescriptionField = form.querySelector('.detailed-description');
       shortDescriptionField.value = `${response.name}`;
       detailedDescriptionField.value = `${response.description}`;
     }
     popUp.classList.toggle('active');
+  }
+
+  static showDescription(e, response) {
+    const description = document.createElement('p');
+    description.classList.add('ticket__description');
+    description.textContent = response.description;
+    e.target.appendChild(description);
   }
 }

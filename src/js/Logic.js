@@ -7,7 +7,7 @@ export default class Logic {
     this.request = new Request();
 
     this.start();
-    this.listenerOfAddTicket();
+    this.listener();
   }
 
   async start() {
@@ -15,28 +15,58 @@ export default class Logic {
     DOM.showTickets(tickets);
   }
 
-  listenerOfAddTicket() {
+  listener() {
     this.element.addEventListener('click', (e) => this.eventHandler(e));
   }
 
-  async eventHandler(e) {
+  eventHandler(e) {
     if (e.target.classList.contains('desk__add-button')) {
       DOM.showPopup('Добавить тикет');
-      return;
     }
     if (e.target.classList.contains('cancel-button')) {
       DOM.showPopup();
-      return;
     }
     if (e.target.classList.contains('ticket__change')) {
-      const ticket = e.target.closest('.ticket');
-      const id = ticket.querySelector('.ticket__check').getAttribute('id');
-      const response = await this.request.getTicket(id);
-      DOM.showPopup('Изменить тикет', response);
+      this.change(e);
+    }
+    if (e.target.classList.contains('ticket__delete')) {
+      DOM.showPopup('Удалить тикет');
+    }
+    if (e.target.classList.contains('ticket')) {
+      this.expand(e);
+    }
+    if (e.target.classList.contains('ok-button')) {
+      e.preventDefault();
+      this.sendTicket(e);
+    }
+  }
+
+  async change(e) {
+    const response = await this.requestTicket(e);
+    DOM.showPopup('Изменить тикет', response);
+  }
+
+  async expand(e) {
+    const description = e.target.querySelector('.ticket__description');
+    if (description) {
+      description.remove();
       return;
     }
-    // if ((e.target.classList.contains('ticket__delete')) {
-    //   DOM.renderPopupDelete();
-    // }
+    const response = await this.requestTicket(e);
+    DOM.showDescription(e, response);
+  }
+
+  async requestTicket(e) {
+    const ticket = e.target.closest('.ticket');
+    const id = ticket.querySelector('.ticket__check').getAttribute('id');
+    const response = await this.request.getTicket(id);
+    return response;
+  }
+
+  async sendTicket(e) {
+    const popup = e.target.closest('.popup');
+    const form = popup.querySelector('.popup__form');
+    const response = await this.request.postTicket(form);
+    console.log(response);
   }
 }
