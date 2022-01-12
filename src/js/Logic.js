@@ -12,7 +12,7 @@ export default class Logic {
 
   async start() {
     const tickets = await this.request.getTickets();
-    DOM.renderTickets(tickets);
+    DOM.showTickets(tickets);
   }
 
   listenerOfAddTicket() {
@@ -21,18 +21,22 @@ export default class Logic {
 
   async eventHandler(e) {
     if (e.target.classList.contains('desk__add-button')) {
-      DOM.renderPopupAdd();
+      DOM.showPopup('Добавить тикет');
       return;
     }
     if (e.target.classList.contains('cancel-button')) {
-      DOM.hidePopupAdd();
+      DOM.showPopup();
       return;
     }
     if (e.target.classList.contains('ticket__change')) {
       const ticket = e.target.closest('.ticket');
       const id = ticket.querySelector('.ticket__check').getAttribute('id');
       const response = await this.request.getTicket(id);
-      DOM.renderPopupChange(response);
+      DOM.showPopup('Изменить тикет', response);
+      return;
     }
+    // if ((e.target.classList.contains('ticket__delete')) {
+    //   DOM.renderPopupDelete();
+    // }
   }
 }
