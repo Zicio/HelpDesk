@@ -33,5 +33,21 @@ export default class Request {
       method: 'POST',
       body: new FormData(form),
     });
+    return response;
+  }
+
+  async deleteTicket(id) {
+    const url = `${this.url}?method=deleteTicket&id=${id}`;
+    const response = await fetch(url);
+    return response;
+  }
+
+  async changeTicket(form, id) {
+    const url = `${this.url}?method=changeTicket&id=${id}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: new FormData(form),
+    });
+    return response;
   }
 }
