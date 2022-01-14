@@ -50,4 +50,10 @@ export default class Request {
     });
     return response;
   }
+
+  async checkTicket(id) {
+    const url = `${this.url}?method=changeTicket&id=${id}`;
+    const response = await fetch(url);
+    return response;
+  }
 }

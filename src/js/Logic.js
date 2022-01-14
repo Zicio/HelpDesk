@@ -20,39 +20,52 @@ export default class Logic {
   }
 
   eventHandler(e) {
+    // Кнопка "Добавить тикет"
     if (e.target.classList.contains('desk__add-button')) {
       DOM.showPopup('Добавить тикет');
       return;
     }
+    // Кнопка "Отмена"
     if (e.target.classList.contains('cancel-button')) {
       DOM.showPopup();
       return;
     }
+    // Кнопка "Изменить тикет"
     if (e.target.classList.contains('ticket__change')) {
       this.change(e);
       return;
     }
+    // Кнопка "Удалить тикет"
     if (e.target.classList.contains('ticket__delete')) {
       DOM.showPopup('Удалить тикет', null, e);
       return;
     }
+    // Раскрыть/скрыть описание
     if (e.target.classList.contains('ticket')) {
       this.expand(e);
       return;
     }
+    // Кнопка "ОК" при добавлении тикета
     if (e.target.classList.contains('ok-button') && e.target.closest('.popup').querySelector('.popup__title').textContent === 'Добавить тикет') {
       e.preventDefault();
       this.sendTicket(e);
       return;
     }
+    // Кнопка "ОК" при удалении тикета
     if (e.target.classList.contains('ok-button') && e.target.closest('.popup').querySelector('.popup__title').textContent === 'Удалить тикет') {
       e.preventDefault();
       this.deleteTicket(e);
       return;
     }
+    // Кнопка "ОК" при удалении тикета
     if (e.target.classList.contains('ok-button') && e.target.closest('.popup').querySelector('.popup__title').textContent === 'Изменить тикет') {
       e.preventDefault();
       this.changeTicket(e);
+      return;
+    }
+    // Кнопка изменения состояния тикета
+    if (e.target.classList.contains('ticket__check')) {
+      this.checkTicket(e);
     }
   }
 
@@ -106,5 +119,10 @@ export default class Logic {
       DOM.showPopup();
       this.start();
     }
+  }
+
+  checkTicket(e) {
+    const id = e.target.getAttribute('id');
+    this.request.checkTicket(id);
   }
 }
