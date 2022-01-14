@@ -94,7 +94,7 @@ export default class Logic {
   async sendTicket(e) {
     const popup = e.target.closest('.popup');
     const form = popup.querySelector('.popup__form');
-    const response = await this.request.postTicket(form);
+    const response = await this.request.postTicket('createTicket', null, form);
     if (response.ok) {
       DOM.showPopup();
       this.start();
@@ -103,7 +103,7 @@ export default class Logic {
 
   async deleteTicket(e) {
     const id = e.target.dataset.ticketId;
-    const response = await this.request.deleteTicket(id);
+    const response = await this.request.postTicket('deleteTicket', id);
     if (response.ok) {
       DOM.showPopup();
       this.start();
@@ -114,7 +114,7 @@ export default class Logic {
     const id = e.target.dataset.ticketId;
     const popup = e.target.closest('.popup');
     const form = popup.querySelector('.popup__form');
-    const response = await this.request.changeTicket(form, id);
+    const response = await this.request.postTicket('changeTicket', id, form);
     if (response.ok) {
       DOM.showPopup();
       this.start();
@@ -123,6 +123,6 @@ export default class Logic {
 
   checkTicket(e) {
     const id = e.target.getAttribute('id');
-    this.request.checkTicket(id);
+    this.request.postTicket('changeTicket', id);
   }
 }

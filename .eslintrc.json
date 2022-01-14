@@ -13,6 +13,7 @@
     ],
     "no-unused-vars": "off",
     "no-unused-expressions": "warn",
-    "no-plusplus": "warn"
+    "no-plusplus": "warn",
+    "default-case": "off"
   }
 }

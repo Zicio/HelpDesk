@@ -1,13 +1,11 @@
-import DOM from './DOM';
-
 export default class Request {
   constructor() {
-    this.url = 'https://zicio-heroku.herokuapp.com/';
+    this.url = new URL('https://zicio-heroku.herokuapp.com/');
   }
 
   async getTickets() {
-    const url = `${this.url}?method=allTickets`;
-    const response = await fetch(url);
+    this.url.searchParams.set('method', 'allTickets');
+    const response = await fetch(this.url.href);
     let tickets;
     if (response.ok) {
       tickets = await response.json();
@@ -17,43 +15,43 @@ export default class Request {
   }
 
   async getTicket(id) {
-    const url = `${this.url}?method=ticketById&id=${id}`;
-    const response = await fetch(url);
+    this.url.searchParams.set('method', 'ticketById');
+    this.url.searchParams.append('id', `${id}`);
+    const response = await fetch(this.url.href);
     let ticket;
     if (response.ok) {
       ticket = await response.json();
       console.log(ticket);
     }
+    this.url.searchParams.delete('id');
     return ticket[0];
   }
 
-  async postTicket(form) {
-    const url = `${this.url}?method=createTicket`;
-    const response = await fetch(url, {
-      method: 'POST',
-      body: new FormData(form),
-    });
-    return response;
-  }
-
-  async deleteTicket(id) {
-    const url = `${this.url}?method=deleteTicket&id=${id}`;
-    const response = await fetch(url);
-    return response;
-  }
-
-  async changeTicket(form, id) {
-    const url = `${this.url}?method=changeTicket&id=${id}`;
-    const response = await fetch(url, {
-      method: 'POST',
-      body: new FormData(form),
-    });
-    return response;
-  }
-
-  async checkTicket(id) {
-    const url = `${this.url}?method=changeTicket&id=${id}`;
-    const response = await fetch(url);
+  async postTicket(method, id, form) {
+    switch (method) {
+      case 'createTicket':
+        this.url.searchParams.set('method', 'createTicket');
+        break;
+      case 'deleteTicket':
+        this.url.searchParams.set('method', 'deleteTicket');
+        break;
+      case 'changeTicket':
+        this.url.searchParams.set('method', 'changeTicket');
+        break;
+    }
+    if (id) {
+      this.url.searchParams.append('id', `${id}`);
+    }
+    let response;
+    if (form) {
+      response = await fetch(this.url.href, {
+        method: 'POST',
+        body: new FormData(form),
+      });
+    } else {
+      response = await fetch(this.url.href);
+    }
+    this.url.searchParams.delete('id');
     return response;
   }
 }
